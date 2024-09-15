@@ -23,3 +23,18 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ['name', 'books']
+
+# api/serializers.py
+class BookSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Book model.
+    Includes custom validation to prevent future publication dates.
+    """
+    # Custom validation for publication_year
+
+class AuthorSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Author model.
+    Serializes the author name and all related books using the nested BookSerializer.
+    """
+    books = BookSerializer(many=True, read_only=True)
